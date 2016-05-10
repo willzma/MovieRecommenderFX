@@ -1,4 +1,4 @@
-package model;
+package edu.gatech.MovieRecommenderFX.controller.model;
 
 import java.util.HashMap;
 import java.util.Map;

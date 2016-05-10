@@ -1,4 +1,4 @@
-package model;
+package edu.gatech.MovieRecommenderFX.controller.model;
 
 public class Profile implements Comparable<Profile> {
     private String major = "CS";

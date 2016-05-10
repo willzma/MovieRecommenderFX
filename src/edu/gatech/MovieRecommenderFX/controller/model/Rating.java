@@ -1,4 +1,4 @@
-package model;
+package edu.gatech.MovieRecommenderFX.controller.model;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,7 +39,7 @@ public class Rating implements Comparable<Rating> {
 
     @Override
     public int compareTo(Rating o) {
-        return (int) (this.rating - o.getRating());
+        return Float.compare(o.getRating(), this.getRating());
     }
 
     @Override
