@@ -10,16 +10,11 @@ import edu.gatech.MovieRecommenderFX.controller.model.Profile;
 import edu.gatech.MovieRecommenderFX.controller.model.Rating;
 import edu.gatech.MovieRecommenderFX.controller.model.User;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.text.Text;
 
-import java.io.IOException;
 import java.net.URL;
 
 import java.util.ResourceBundle;
@@ -33,7 +28,6 @@ public class LoadingScreenController implements Initializable {
     private ProgressIndicator loadingWheel;
 
     private static AtomicBoolean listenersOpened = new AtomicBoolean();
-    private LoadingScreenController lsc;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -42,7 +36,6 @@ public class LoadingScreenController implements Initializable {
 
         // logic initialization
         loadingWheel.setMinSize(50, 50);
-        lsc = this;
 
         // initialize databases
         Main.USER_TABLE.addValueEventListener(new ValueEventListener() {
