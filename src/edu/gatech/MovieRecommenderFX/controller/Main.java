@@ -65,15 +65,19 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("view\\loading_screen.fxml"));
 
         primaryStage.setTitle("Movie Recommender FX");
+        primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root, 640, 480));
         primaryStage.show();
     }
+
+    @Override
+    public void stop() { System.exit(0); }
 
     public static Main getInstance() { return main; }
 
     public static void main(String[] args) { launch(args); }
 
-    protected static String getDigest(String password) {
+    public static String getDigest(String password) {
         byte[] hash = sharedDigest.digest(password.getBytes());
 
         StringBuilder sb = new StringBuilder(hash.length * 2);
