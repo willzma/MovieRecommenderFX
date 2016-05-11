@@ -52,6 +52,7 @@ public class LoginController implements Initializable {
                     messageDialog.setFill(Color.GREEN);
                     messageDialog.setText("Login successful.");
                     for (int i = 0; i < 10000; i++) { }
+                    Main.currentUser = Main.allUsers.get(username);
                     Main.loadingCallback("dashboard.fxml");
                 } else {
                     messageDialog.setFill(Color.RED);
