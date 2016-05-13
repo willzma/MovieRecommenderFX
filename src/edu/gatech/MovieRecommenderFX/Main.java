@@ -7,7 +7,12 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -23,6 +28,7 @@ public class Main extends Application {
 
     // Shared window for the application
     private static Stage sharedStage;
+    private static Rectangle windowRect;
 
     // One MessageDigest for all password hashing
     private static MessageDigest sharedDigest;
@@ -38,6 +44,10 @@ public class Main extends Application {
     public static Map<String, Movie> allMovies;
 
     private static Main main;
+
+    // Window position tracking
+    private static double xOffset = 0;
+    private static double yOffset = 0;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -63,10 +73,19 @@ public class Main extends Application {
         }
 
         Parent root = FXMLLoader.load(getClass().getResource("view\\loading_screen.fxml"));
+        windowRect = new Rectangle(720, 480);
+        windowRect.setArcHeight(15.0);
+        windowRect.setArcWidth(15.0);
+        root.setClip(windowRect);
 
+        Scene scene = new Scene(root, 720, 480);
+        scene.setFill(Color.TRANSPARENT);
+
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
+        primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("icon.png")));
         primaryStage.setTitle("Movie Recommender FX");
         primaryStage.setResizable(false);
-        primaryStage.setScene(new Scene(root, 640, 480));
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 
@@ -74,6 +93,8 @@ public class Main extends Application {
     public void stop() { System.exit(0); }
 
     public static Main getInstance() { return main; }
+
+    public static Stage getSharedStage() { return sharedStage; }
 
     public static void main(String[] args) { launch(args); }
 
@@ -92,10 +113,30 @@ public class Main extends Application {
         Platform.runLater(() -> {
             try {
                 Parent root = FXMLLoader.load(Main.getInstance().getClass().getResource("view\\" + filename));
-                sharedStage.setScene(new Scene(root, 640, 480));
+                windowRect = new Rectangle(720, 480);
+                windowRect.setArcHeight(15.0);
+                windowRect.setArcWidth(15.0);
+                root.setClip(windowRect);
+
+                Scene scene = new Scene(root, 720, 480);
+                scene.setFill(Color.TRANSPARENT);
+
+                sharedStage.setScene(scene);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
+    }
+
+
+    // From here on are reused logic in method references
+    public static void panePressed(MouseEvent event) {
+        xOffset = sharedStage.getX() - event.getScreenX();
+        yOffset = sharedStage.getY() - event.getScreenY();
+    }
+
+    public static void paneDragged(MouseEvent event) {
+        sharedStage.setX(event.getScreenX() + xOffset);
+        sharedStage.setY(event.getScreenY() + yOffset);
     }
 }
