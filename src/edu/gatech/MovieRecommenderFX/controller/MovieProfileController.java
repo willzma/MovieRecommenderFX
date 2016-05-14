@@ -1,7 +1,14 @@
 package edu.gatech.MovieRecommenderFX.controller;
 
-/**
- * Created by theon on 5/13/2016.
- */
-public class MovieProfileController {
+import javafx.fxml.Initializable;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class MovieProfileController implements Initializable {
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
 }

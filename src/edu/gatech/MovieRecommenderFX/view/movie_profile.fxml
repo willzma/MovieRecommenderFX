@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<GridPane maxHeight="600.0" maxWidth="600.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="5.0" minHeight="5.0" prefHeight="5.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="300.0" minHeight="10.0" prefHeight="300.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="150.0" minHeight="10.0" prefHeight="150.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="150.0" minHeight="10.0" prefHeight="150.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <ImageView fitHeight="300.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
+            <GridPane.margin>
+                <Insets left="15.0" top="15.0" />
+            </GridPane.margin>
+        </ImageView>
+        <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <GridPane.margin>
+                <Insets bottom="15.0" />
+            </GridPane.margin>
+        </TextArea>
+        <ListView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3" GridPane.rowSpan="2">
+            <GridPane.margin>
+                <Insets top="60.0" />
+            </GridPane.margin>
+        </ListView>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="The Hunger Games (2012)" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <GridPane.margin>
+                <Insets bottom="250.0" left="-75.0" />
+            </GridPane.margin>
+            <font>
+                <Font name="Arial Black" size="18.0" />
+            </font>
+        </Text>
+        <HBox maxHeight="30.0" prefHeight="30.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <GridPane.margin>
+                <Insets bottom="180.0" left="-75.0" right="15.0" />
+            </GridPane.margin>
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PG-13">
+                    <font>
+                        <Font name="Arial" size="12.0" />
+                    </font>
+                </Text>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="142 min">
+                    <font>
+                        <Font name="Arial" size="12.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets left="15.0" />
+                    </HBox.margin>
+                </Text>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Adventure, Drama, Sci-Fi">
+                    <HBox.margin>
+                        <Insets left="15.0" />
+                    </HBox.margin>
+                    <font>
+                        <Font name="Arial" size="12.0" />
+                    </font>
+                </Text>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="23 Mar 2012">
+                    <HBox.margin>
+                        <Insets left="15.0" />
+                    </HBox.margin>
+                    <font>
+                        <Font name="Arial" size="12.0" />
+                    </font>
+                </Text>
+            </children>
+        </HBox>
+        <ButtonBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to bottom, #474642, #3C3B37);" GridPane.columnSpan="2" />
+        <HBox maxHeight="30.0" prefHeight="300.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <GridPane.margin>
+                <Insets bottom="145.0" left="-75.0" right="15.0" />
+            </GridPane.margin>
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="IMDb: 7.3/10 from 687,590" />
+            </children>
+        </HBox>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Katniss Everdeen voluntarily takes her younger sister's place in the Hunger Games, a televised competition in which two teenagers from each of the twelve Districts of Panem are chosen at random to fight to the death." wrappingWidth="360.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.vgrow="NEVER">
+            <GridPane.margin>
+                <Insets bottom="50.0" left="-75.0" right="15.0" />
+            </GridPane.margin>
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Reviews from Other Users" GridPane.rowIndex="3">
+            <GridPane.margin>
+                <Insets bottom="65.0" left="45.0" />
+            </GridPane.margin>
+            <font>
+                <Font name="Arial Black" size="14.0" />
+            </font>
+        </Text>
+        <ButtonBar maxHeight="40.0" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <GridPane.margin>
+                <Insets left="15.0" right="15.0" top="60.0" />
+            </GridPane.margin>
+        </ButtonBar>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Leave a Review" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <font>
+                <Font name="Arial Black" size="14.0" />
+            </font>
+            <GridPane.margin>
+                <Insets bottom="65.0" left="90.0" />
+            </GridPane.margin>
+        </Text>
+    </children>
+</GridPane>

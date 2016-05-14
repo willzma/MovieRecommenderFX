@@ -3,18 +3,20 @@ package edu.gatech.MovieRecommenderFX.controller;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import edu.gatech.MovieRecommenderFX.Main;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,9 +25,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -71,14 +75,15 @@ public class DashboardController implements Initializable {
 
         goButton.setOnMouseClicked(event -> {
             if (!"".equals(searchField.getText())) {
-                loadingText.setText("Searching");
+                listView.setVisible(false);
+                loadingText.setText("Searching...");
                 loadingText.setVisible(true);
                 loadingWheel.setVisible(true);
 
                 StringBuilder sb = new StringBuilder();
 
                 try {
-                    URL url = new URL("http://www.omdbapi.com/?s=" + searchField.getText().replaceAll(" ", "%20"));
+                    URL url = new URL("http://www.omdbapi.com/?s=" + searchField.getText().replaceAll(" ", "%20") + "&type=movie");
                     BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
 
                     String s;
@@ -105,47 +110,41 @@ public class DashboardController implements Initializable {
                         Thread t2 = new Thread() {
                             public void run() {
                                 for (HashMap<String, String> jsonObject : jsonList) {
-                                    if ("movie".equals(jsonObject.get("Type"))) {
-                                        HashMap<String, String> details = getDetailedInformation(jsonObject.get("Title"));
+                                    HashMap<String, String> details = getDetailedInformation(jsonObject.get("Title"));
 
-                                        MovieContainer mc = new MovieContainer((!"N/A".equals(jsonObject.get("Poster")) ? new Image(jsonObject.get("Poster"), 120, 180, false, false) :
-                                                new Image(Main.class.getResourceAsStream("view\\icons\\nopicture.png"), 120, 180, false, false)),
-                                                jsonObject.get("Title") + " (" + jsonObject.get("Year") + ")",
-                                                details.get("imdbRating"),
-                                                details.get("imdbVotes"),
-                                                details.get("Runtime"),
-                                                details.get("tomatoMeter"),
-                                                details.get("Metascore"),
-                                                details.get("Plot"));
-                                        list.add(mc);
-                                    }
+                                    MovieContainer mc = new MovieContainer((!"N/A".equals(jsonObject.get("Poster")) ? new Image(jsonObject.get("Poster"), 120, 180, false, false) :
+                                            new Image(Main.class.getResourceAsStream("view\\icons\\nopicture.png"), 120, 180, false, false)),
+                                            jsonObject.get("Title") + " (" + jsonObject.get("Year") + ")",
+                                            details.get("imdbRating"),
+                                            details.get("imdbVotes"),
+                                            details.get("Runtime"),
+                                            details.get("tomatoMeter"),
+                                            details.get("Metascore"),
+                                            details.get("Plot"));
+                                    if (!list.contains(mc)) list.add(mc);
                                 }
+
+                                Platform.runLater(() -> {
+                                    listView = new ListView<>(list);
+                                    listView.setPrefHeight(390);
+                                    listView.setMaxHeight(390);
+                                    listView.setPrefWidth(720);
+                                    listView.setMaxWidth(720);
+                                    listView.setCellFactory(param -> new MovieCell());
+                                    GridPane.setRowSpan(listView, 2);
+                                    GridPane.setColumnSpan(listView, 4);
+
+                                    loadingText.setVisible(false);
+                                    loadingWheel.setVisible(false);
+
+                                    gridPane.add(listView, 0, 3);
+                                });
                             }
                         };
                         t2.start();
-
-                        try {
-                            t2.join();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-                        loadingText.setVisible(false);
-                        loadingWheel.setVisible(false);
-
-                        listView = new ListView<>(list);
-                        listView.setPrefHeight(390);
-                        listView.setMaxHeight(390);
-                        listView.setPrefWidth(720);
-                        listView.setMaxWidth(720);
-                        listView.setCellFactory(param -> new MovieCell());
-                        GridPane.setRowSpan(listView, 2);
-                        GridPane.setColumnSpan(listView, 4);
-                        gridPane.add(listView, 0, 3);
                     }
                 } catch (IOException e) {
                     loadingText.setText("An error occurred.");
-                    loadingText.setX(210);
                     loadingWheel.setVisible(false);
                 }
             }
@@ -193,7 +192,7 @@ public class DashboardController implements Initializable {
     protected HashMap<String, String> getDetailedInformation(String title) {
         try {
             StringBuilder sb = new StringBuilder();
-            URL url = new URL("http://www.omdbapi.com/?t=" + title.replaceAll(" ", "%20") + "&r=json&plot=short&tomatoes=true");
+            URL url = new URL("http://www.omdbapi.com/?t=" + title.replaceAll(" ", "%20") + "&r=json&plot=short&tomatoes=true&type=movie");
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
 
             String s;
@@ -233,6 +232,21 @@ public class DashboardController implements Initializable {
             this.metascore = metascore;
             this.plot = plot;
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            MovieContainer that = (MovieContainer) o;
+
+            return title.equals(that.title);
+        }
+
+        @Override
+        public int hashCode() {
+            return title.hashCode();
+        }
     }
 
     private class MovieCell extends ListCell<MovieContainer> {
@@ -246,9 +260,7 @@ public class DashboardController implements Initializable {
         private Text metascore;
         private Text plot;
 
-        public MovieCell() {
-            super();
-        }
+        public MovieCell() { super(); }
 
         @Override
         public void updateItem(MovieContainer mc, boolean empty) {
@@ -312,7 +324,31 @@ public class DashboardController implements Initializable {
                 GridPane.setMargin(this.plot, new Insets(0, 0, 0, 0));
                 GridPane.setRowSpan(this.plot, 2);
                 gridPane.add(this.plot, 1, 2);
+                gridPane.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 2) {
+                        try {
+                            Stage stage = new Stage();
+                            stage.initStyle(StageStyle.TRANSPARENT);
+                            stage.getIcons().add(new Image(Main.getInstance().getClass().getResourceAsStream("view\\icons\\icon.png")));
+                            stage.setTitle(mc.title);
+                            stage.setResizable(false);
 
+                            Parent root = FXMLLoader.load(Main.getInstance().getClass().getResource("view\\movie_profile.fxml"));
+                            Rectangle windowRect = new Rectangle(600, 600);
+                            windowRect.setArcHeight(15.0);
+                            windowRect.setArcWidth(15.0);
+                            root.setClip(windowRect);
+
+                            Scene scene = new Scene(root, 600, 600);
+                            scene.setFill(Color.TRANSPARENT);
+
+                            stage.setScene(scene);
+                            stage.show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
                 setGraphic(gridPane);
             }
         }

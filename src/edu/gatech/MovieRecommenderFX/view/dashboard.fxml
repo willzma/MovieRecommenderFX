@@ -78,7 +78,7 @@
                               </Text>
                               <ProgressIndicator fx:id="loadingWheel">
                                  <VBox.margin>
-                                    <Insets right="120.0" top="25.0" />
+                                    <Insets right="100.0" top="25.0" />
                                  </VBox.margin>
                               </ProgressIndicator>
                            </children>
