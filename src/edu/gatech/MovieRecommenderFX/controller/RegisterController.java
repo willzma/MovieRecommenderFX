@@ -95,7 +95,7 @@ public class RegisterController implements Initializable {
             } else {
                 messageDialog.setFill(Color.GREEN);
                 messageDialog.setText("Account registered.");
-                for (int i = 0; i < 10000; i++) { }
+                for (int i = 0; i < 100000; i++) { }
                 User tempUser = new User(nameField.getText(), emailField.getText(), usernameField.getText(), Main.getDigest(passwordField.getText()));
                 tempUser.setStatus("Active");
                 Main.currentUser = tempUser;

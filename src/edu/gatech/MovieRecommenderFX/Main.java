@@ -82,7 +82,7 @@ public class Main extends Application {
         scene.setFill(Color.TRANSPARENT);
 
         primaryStage.initStyle(StageStyle.TRANSPARENT);
-        primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("icon.png")));
+        primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("view\\icons\\icon.png")));
         primaryStage.setTitle("Movie Recommender FX");
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);

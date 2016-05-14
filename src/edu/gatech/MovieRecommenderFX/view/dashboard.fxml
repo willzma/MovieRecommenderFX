@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<?import java.net.URL?>
 <GridPane prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gatech.MovieRecommenderFX.controller.DashboardController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="360.0" minWidth="10.0" prefWidth="360.0" />
@@ -24,17 +30,79 @@
    <children>
       <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="720.0" tabClosingPolicy="UNAVAILABLE" GridPane.columnSpan="2" GridPane.rowIndex="2">
         <tabs>
-          <Tab text="Search for Movies">
+          <Tab closable="false" text="Search for Movies">
+               <content>
+                  <GridPane fx:id="gridPane">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="60.0" minWidth="10.0" prefWidth="60.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="5.0" minHeight="5.0" prefHeight="5.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="5.0" minHeight="5.0" prefHeight="5.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="5.0" minHeight="5.0" prefHeight="5.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search Movies" textAlignment="CENTER" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Arial Bold" size="18.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="10.0" />
+                           </GridPane.margin>
+                        </Text>
+                        <TextField fx:id="searchField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                        <Button fx:id="goButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Go" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Arial" size="16.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                         <ListView fx:id="listView" maxHeight="390.0" maxWidth="720.0" prefHeight="390.0" prefWidth="720.0" GridPane.columnSpan="4" GridPane.rowIndex="3" GridPane.rowSpan="2" />
+                        <VBox fx:id="vBox" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.rowSpan="2">
+                           <children>
+                              <Text fx:id="loadingText" strokeType="OUTSIDE" strokeWidth="0.0" text="Searching..." textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Arial Bold" size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="160.0" top="105.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <ProgressIndicator fx:id="loadingWheel">
+                                 <VBox.margin>
+                                    <Insets right="120.0" top="25.0" />
+                                 </VBox.margin>
+                              </ProgressIndicator>
+                           </children>
+                        </VBox>
+                     </children>
+                  </GridPane>
+               </content>
+          </Tab>
+            <Tab closable="false" text="Top Rated">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+            <Tab closable="false" text="Major Recommended">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+          <Tab closable="false" text="Your Profile">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
             </content>
           </Tab>
-          <Tab text="Your Profile">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
-            <Tab text="Your Account">
+            <Tab closable="false" text="Your Account">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
               </content>
@@ -43,18 +111,7 @@
       </TabPane>
       <ButtonBar fx:id="buttonBar" buttonMinWidth="0.0" maxHeight="25.0" prefHeight="25.0" prefWidth="720.0" style="-fx-background-color: linear-gradient(to bottom, #474642, #3C3B37);" GridPane.columnSpan="3">
          <buttons>
-            <Button fx:id="closeButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false"
-                    textAlignment="CENTER" translateX="-345.0" ButtonBar.buttonData="LEFT"
-                    style="-fx-background-radius: 12em;
-                            -fx-min-width: 12px;
-                            -fx-min-height: 12px;
-                            -fx-max-width: 12px;
-                            -fx-max-height: 12px;
-                            -fx-background-color: #FF5C5C;
-                            -fx-background-insets: 0px;
-                            -fx-border-color: #E33E41;
-                            -fx-border-radius: 50%;
-                            -fx-padding: 0px;">
+            <Button fx:id="closeButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" style="-fx-background-radius: 12em;                             -fx-min-width: 12px;                             -fx-min-height: 12px;                             -fx-max-width: 12px;                             -fx-max-height: 12px;                             -fx-background-color: #FF5C5C;                             -fx-background-insets: 0px;                             -fx-border-color: #E33E41;                             -fx-border-radius: 50%;                             -fx-padding: 0px;" textAlignment="CENTER" translateX="-345.0" ButtonBar.buttonData="LEFT">
             </Button>
          </buttons></ButtonBar>
    </children>
