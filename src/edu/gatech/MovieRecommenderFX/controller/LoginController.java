@@ -16,22 +16,14 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
 
-    @FXML
-    private TextField usernameField;
-    @FXML
-    private PasswordField passwordField;
-    @FXML
-    private Button loginButton;
-    @FXML
-    private Button cancelButton;
-    @FXML
-    private Button registerButton;
-    @FXML
-    private Text messageDialog;
-    @FXML
-    private ButtonBar buttonBar;
-    @FXML
-    private Button closeButton;
+    @FXML private TextField usernameField;
+    @FXML private PasswordField passwordField;
+    @FXML private Button loginButton;
+    @FXML private Button cancelButton;
+    @FXML private Button registerButton;
+    @FXML private Text messageDialog;
+    @FXML private ButtonBar buttonBar;
+    @FXML private Button closeButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

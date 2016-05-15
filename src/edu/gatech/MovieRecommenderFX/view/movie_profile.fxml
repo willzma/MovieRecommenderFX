@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -12,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="600.0" maxWidth="600.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65">
+<GridPane maxHeight="600.0" maxWidth="600.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gatech.MovieRecommenderFX.controller.MovieProfileController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -25,22 +27,22 @@
         <RowConstraints maxHeight="150.0" minHeight="10.0" prefHeight="150.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <ImageView fitHeight="300.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
+        <ImageView fx:id="imageView" fitHeight="300.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
             <GridPane.margin>
                 <Insets left="15.0" top="15.0" />
             </GridPane.margin>
         </ImageView>
-        <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+        <TextArea fx:id="textArea" maxHeight="200.0" maxWidth="300.0" prefHeight="200.0" prefWidth="200.0" promptText="Add a review..." GridPane.columnIndex="1" GridPane.rowIndex="4">
             <GridPane.margin>
-                <Insets bottom="15.0" />
+                <Insets bottom="120.0" left="15.0" right="15.0" top="-120.0" />
             </GridPane.margin>
         </TextArea>
-        <ListView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3" GridPane.rowSpan="2">
+        <ListView fx:id="listView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3" GridPane.rowSpan="2">
             <GridPane.margin>
-                <Insets top="60.0" />
+                <Insets bottom="15.0" left="15.0" top="60.0" />
             </GridPane.margin>
         </ListView>
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="The Hunger Games (2012)" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <Text fx:id="titleText" strokeType="OUTSIDE" strokeWidth="0.0" text="The Hunger Games (2012)" GridPane.columnIndex="1" GridPane.rowIndex="2">
             <GridPane.margin>
                 <Insets bottom="250.0" left="-75.0" />
             </GridPane.margin>
@@ -53,12 +55,12 @@
                 <Insets bottom="180.0" left="-75.0" right="15.0" />
             </GridPane.margin>
             <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PG-13">
+                <Text fx:id="ratedText" strokeType="OUTSIDE" strokeWidth="0.0" text="PG-13">
                     <font>
                         <Font name="Arial" size="12.0" />
                     </font>
                 </Text>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="142 min">
+                <Text fx:id="runtimeText" strokeType="OUTSIDE" strokeWidth="0.0" text="142 min">
                     <font>
                         <Font name="Arial" size="12.0" />
                     </font>
@@ -66,7 +68,7 @@
                         <Insets left="15.0" />
                     </HBox.margin>
                 </Text>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Adventure, Drama, Sci-Fi">
+                <Text fx:id="genreText" strokeType="OUTSIDE" strokeWidth="0.0" text="Adventure, Drama, Sci-Fi">
                     <HBox.margin>
                         <Insets left="15.0" />
                     </HBox.margin>
@@ -74,7 +76,7 @@
                         <Font name="Arial" size="12.0" />
                     </font>
                 </Text>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="23 Mar 2012">
+                <Text fx:id="releasedText" strokeType="OUTSIDE" strokeWidth="0.0" text="23 Mar 2012">
                     <HBox.margin>
                         <Insets left="15.0" />
                     </HBox.margin>
@@ -84,16 +86,23 @@
                 </Text>
             </children>
         </HBox>
-        <ButtonBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to bottom, #474642, #3C3B37);" GridPane.columnSpan="2" />
+        <ButtonBar fx:id="buttonBar" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to bottom, #474642, #3C3B37);" GridPane.columnSpan="2">
+            <buttons>
+                <Button fx:id="closeButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" style="-fx-background-radius: 12em;
+                       -fx-min-width: 12px; -fx-min-height: 12px; -fx-max-width: 12px; -fx-max-height: 12px; -fx-background-color: #FF5C5C; -fx-background-insets: 0px; -fx-border-color: #E33E41;
+                       -fx-border-radius: 50%; -fx-padding: 0px;" textAlignment="CENTER" translateX="-285.0" ButtonBar.buttonData="LEFT">
+                </Button>
+            </buttons></ButtonBar>
         <HBox maxHeight="30.0" prefHeight="300.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
             <GridPane.margin>
                 <Insets bottom="145.0" left="-75.0" right="15.0" />
             </GridPane.margin>
             <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="IMDb: 7.3/10 from 687,590" />
+                <Text fx:id="imdbText" strokeType="OUTSIDE" strokeWidth="0.0" text="IMDb: 7.3/10 from 687,590" />
             </children>
         </HBox>
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Katniss Everdeen voluntarily takes her younger sister's place in the Hunger Games, a televised competition in which two teenagers from each of the twelve Districts of Panem are chosen at random to fight to the death." wrappingWidth="360.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.vgrow="NEVER">
+        <Text fx:id="descriptionText" strokeType="OUTSIDE" strokeWidth="0.0" text="Katniss Everdeen voluntarily takes her younger sister's place in the Hunger Games, a televised competition in which two teenagers from each of the twelve Districts of Panem are chosen at random to fight to the death."
+              wrappingWidth="360.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.vgrow="NEVER">
             <GridPane.margin>
                 <Insets bottom="50.0" left="-75.0" right="15.0" />
             </GridPane.margin>
@@ -101,26 +110,39 @@
                 <Font size="14.0" />
             </font>
         </Text>
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Reviews from Other Users" GridPane.rowIndex="3">
+        <Text fx:id="reviewText" strokeType="OUTSIDE" strokeWidth="0.0" text="Reviews from Other Users" GridPane.rowIndex="3">
             <GridPane.margin>
-                <Insets bottom="65.0" left="45.0" />
+                <Insets bottom="65.0" left="55.0" />
             </GridPane.margin>
             <font>
                 <Font name="Arial Black" size="14.0" />
             </font>
         </Text>
-        <ButtonBar maxHeight="40.0" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <ButtonBar fx:id="starButtonBar" maxHeight="40.0" maxWidth="300.0" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
             <GridPane.margin>
-                <Insets left="15.0" right="15.0" top="60.0" />
+                <Insets left="15.0" right="15.0" top="-30.0" />
             </GridPane.margin>
         </ButtonBar>
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Leave a Review" GridPane.columnIndex="1" GridPane.rowIndex="3">
-            <font>
-                <Font name="Arial Black" size="14.0" />
-            </font>
-            <GridPane.margin>
-                <Insets bottom="65.0" left="90.0" />
-            </GridPane.margin>
-        </Text>
+      <ProgressIndicator fx:id="progressIndicator" maxHeight="75.0" maxWidth="75.0" prefHeight="75.0" prefWidth="75.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets left="-37.5" top="-150.0" />
+         </GridPane.margin>
+      </ProgressIndicator>
+      <Text fx:id="loadingText" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading..." GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets left="-45.0" top="-300.0" />
+         </GridPane.margin>
+         <font>
+            <Font name="Arial Black" size="18.0" />
+         </font>
+      </Text>
+      <Button fx:id="submitButton" mnemonicParsing="false" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="15.0" left="118.0" top="105.0" />
+         </GridPane.margin>
+      </Button>
     </children>
 </GridPane>

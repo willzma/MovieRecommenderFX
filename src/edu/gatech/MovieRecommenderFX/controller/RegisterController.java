@@ -15,24 +15,15 @@ import java.util.ResourceBundle;
 
 public class RegisterController implements Initializable {
 
-    @FXML
-    private TextField nameField;
-    @FXML
-    private TextField emailField;
-    @FXML
-    private TextField usernameField;
-    @FXML
-    private TextField passwordField;
-    @FXML
-    private Button registerButton;
-    @FXML
-    private Button cancelButton;
-    @FXML
-    private Text messageDialog;
-    @FXML
-    private ButtonBar buttonBar;
-    @FXML
-    private Button closeButton;
+    @FXML private TextField nameField;
+    @FXML private TextField emailField;
+    @FXML private TextField usernameField;
+    @FXML private TextField passwordField;
+    @FXML private Button registerButton;
+    @FXML private Button cancelButton;
+    @FXML private Text messageDialog;
+    @FXML private ButtonBar buttonBar;
+    @FXML private Button closeButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

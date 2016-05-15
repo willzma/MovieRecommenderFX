@@ -41,22 +41,14 @@ import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
 
-    @FXML
-    private TextField searchField;
-    @FXML
-    private Button goButton;
-    @FXML
-    private GridPane gridPane;
-    @FXML
-    private ListView<MovieContainer> listView;
-    @FXML
-    private Text loadingText;
-    @FXML
-    private ProgressIndicator loadingWheel;
-    @FXML
-    private ButtonBar buttonBar;
-    @FXML
-    private Button closeButton;
+    @FXML private TextField searchField;
+    @FXML private Button goButton;
+    @FXML private GridPane gridPane;
+    @FXML private ListView<MovieContainer> listView;
+    @FXML private Text loadingText;
+    @FXML private ProgressIndicator loadingWheel;
+    @FXML private ButtonBar buttonBar;
+    @FXML private Button closeButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -107,7 +99,7 @@ public class DashboardController implements Initializable {
                         List<HashMap<String, String>> jsonList = g.fromJson(result, new TypeToken<List<HashMap<String, String>>>(){}.getType());
                         ObservableList<MovieContainer> list = FXCollections.observableArrayList();
 
-                        Thread t2 = new Thread() {
+                        Thread t = new Thread() {
                             public void run() {
                                 for (HashMap<String, String> jsonObject : jsonList) {
                                     HashMap<String, String> details = getDetailedInformation(jsonObject.get("Title"));
@@ -141,7 +133,8 @@ public class DashboardController implements Initializable {
                                 });
                             }
                         };
-                        t2.start();
+                        t.setDaemon(true);
+                        t.start();
                     }
                 } catch (IOException e) {
                     loadingText.setText("An error occurred.");
@@ -333,7 +326,8 @@ public class DashboardController implements Initializable {
                             stage.setTitle(mc.title);
                             stage.setResizable(false);
 
-                            Parent root = FXMLLoader.load(Main.getInstance().getClass().getResource("view\\movie_profile.fxml"));
+                            FXMLLoader fxmlLoader = new FXMLLoader(Main.getInstance().getClass().getResource("view\\movie_profile.fxml"));
+                            Parent root = fxmlLoader.load();
                             Rectangle windowRect = new Rectangle(600, 600);
                             windowRect.setArcHeight(15.0);
                             windowRect.setArcWidth(15.0);
@@ -341,6 +335,10 @@ public class DashboardController implements Initializable {
 
                             Scene scene = new Scene(root, 600, 600);
                             scene.setFill(Color.TRANSPARENT);
+
+                            MovieProfileController mpc = fxmlLoader.getController();
+                            mpc.sendStage(stage);
+                            mpc.sendTitle(mc.title);
 
                             stage.setScene(scene);
                             stage.show();

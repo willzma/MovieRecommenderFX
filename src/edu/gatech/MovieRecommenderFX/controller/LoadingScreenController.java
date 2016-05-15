@@ -22,10 +22,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class LoadingScreenController implements Initializable {
 
-    @FXML
-    private Text loadingMessage;
-    @FXML
-    private ProgressIndicator loadingWheel;
+    @FXML private Text loadingMessage;
+    @FXML private ProgressIndicator loadingWheel;
 
     private static AtomicBoolean listenersOpened = new AtomicBoolean();
 

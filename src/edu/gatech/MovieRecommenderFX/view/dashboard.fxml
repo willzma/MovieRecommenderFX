@@ -111,7 +111,9 @@
       </TabPane>
       <ButtonBar fx:id="buttonBar" buttonMinWidth="0.0" maxHeight="25.0" prefHeight="25.0" prefWidth="720.0" style="-fx-background-color: linear-gradient(to bottom, #474642, #3C3B37);" GridPane.columnSpan="3">
          <buttons>
-            <Button fx:id="closeButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" style="-fx-background-radius: 12em;                             -fx-min-width: 12px;                             -fx-min-height: 12px;                             -fx-max-width: 12px;                             -fx-max-height: 12px;                             -fx-background-color: #FF5C5C;                             -fx-background-insets: 0px;                             -fx-border-color: #E33E41;                             -fx-border-radius: 50%;                             -fx-padding: 0px;" textAlignment="CENTER" translateX="-345.0" ButtonBar.buttonData="LEFT">
+            <Button fx:id="closeButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" style="-fx-background-radius: 12em;
+            -fx-min-width: 12px; -fx-min-height: 12px; -fx-max-width: 12px; -fx-max-height: 12px; -fx-background-color: #FF5C5C; -fx-background-insets: 0px; -fx-border-color: #E33E41;
+            -fx-border-radius: 50%; -fx-padding: 0px;" textAlignment="CENTER" translateX="-345.0" ButtonBar.buttonData="LEFT">
             </Button>
          </buttons></ButtonBar>
    </children>
