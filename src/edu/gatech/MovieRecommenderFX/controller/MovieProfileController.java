@@ -111,6 +111,12 @@ public class MovieProfileController implements Initializable {
                                                                     "-fx-padding: 0px;"));
     }
 
+    public void setItemsVisibility(boolean b) {
+        for (Node n : visibleItems) {
+            n.setVisible(b);
+        }
+    }
+
     public void sendStage(Stage stage) {
         this.stage = stage;
     }
