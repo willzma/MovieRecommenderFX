@@ -105,7 +105,7 @@ public class DashboardController implements Initializable {
                                     HashMap<String, String> details = getDetailedInformation(jsonObject.get("Title"));
 
                                     MovieContainer mc = new MovieContainer((!"N/A".equals(jsonObject.get("Poster")) ? new Image(jsonObject.get("Poster"), 120, 180, false, false) :
-                                            new Image(Main.class.getResourceAsStream("view\\icons\\nopicture.png"), 120, 180, false, false)),
+                                                                                    new Image(Main.class.getResourceAsStream("view\\icons\\nopicture.png"), 120, 180, false, false)),
                                             jsonObject.get("Title") + " (" + jsonObject.get("Year") + ")",
                                             details.get("imdbRating"),
                                             details.get("imdbVotes"),
@@ -132,8 +132,7 @@ public class DashboardController implements Initializable {
                                     gridPane.add(listView, 0, 3);
                                 });
                             }
-                        };
-                        t.setDaemon(true);
+                        }; t.setDaemon(true);
                         t.start();
                     }
                 } catch (IOException e) {
@@ -289,6 +288,7 @@ public class DashboardController implements Initializable {
                 this.runtime = new Text(mc.runtime);
                 this.runtime.setFont(new Font("Arial", 14));
                 this.runtime.setFill(Color.GRAY);
+                HBox.setMargin(this.runtime, new Insets(2, 0, 0, 0));
 
                 IMDb = new Text(String.format("IMDb: %s/10 from %s", mc.imdbRating, mc.imdbVotes));
                 IMDb.setFont(new Font("Arial Black", 14));
