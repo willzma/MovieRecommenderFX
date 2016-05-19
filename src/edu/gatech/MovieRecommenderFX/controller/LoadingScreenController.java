@@ -36,7 +36,7 @@ public class LoadingScreenController implements Initializable {
         loadingWheel.setMinSize(50, 50);
 
         // initialize databases
-        Main.USER_TABLE.addValueEventListener(new ValueEventListener() {
+        Main.getDBReference().child("users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
@@ -57,11 +57,11 @@ public class LoadingScreenController implements Initializable {
                         tempU.setProfile(new Profile(major, description));
                     }
 
-                    Main.allUsers.put(username, tempU);
+                    Main.getAllUsers().put(username, tempU);
                 }
 
                 if (!listenersOpened.get()) {
-                    Main.MOVIE_TABLE.addValueEventListener(new ValueEventListener() {
+                    Main.getDBReference().child("movies").addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
@@ -79,8 +79,9 @@ public class LoadingScreenController implements Initializable {
                                         float rating = post2Snapshot.child("rating").getValue(Float.class);
                                         String comment = post2Snapshot.child("comment").getValue(String.class);
                                         String poster = post2Snapshot.child("user").getValue(String.class);
+                                        String date = post2Snapshot.child("date").getValue(String.class);
 
-                                        Rating r = new Rating(rating, comment, Main.allUsers.get(poster));
+                                        Rating r = new Rating(rating, comment, Main.getAllUsers().get(poster), date);
 
                                         if (!tempM.getRatings().contains(r)) {
                                             tempM.addRating(r);
@@ -88,7 +89,7 @@ public class LoadingScreenController implements Initializable {
                                     }
                                 }
 
-                                Main.allMovies.put(title, tempM);
+                                Main.getAllMovies().put(title, tempM);
                             }
                         }
 

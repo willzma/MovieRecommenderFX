@@ -80,18 +80,17 @@ public class RegisterController implements Initializable {
                     || "".equals(usernameField.getText()) || "".equals(passwordField.getText())) {
                 messageDialog.setFill(Color.RED);
                 messageDialog.setText("Please fill out every field to continue.");
-            } else if (Main.allUsers.containsKey(usernameField.getText())) {
+            } else if (Main.getAllUsers().containsKey(usernameField.getText())) {
                 messageDialog.setFill(Color.RED);
                 messageDialog.setText("Sorry, that username is already taken.");
             } else {
                 messageDialog.setFill(Color.GREEN);
                 messageDialog.setText("Account registered.");
-                for (int i = 0; i < 100000; i++) { }
                 User tempUser = new User(nameField.getText(), emailField.getText(), usernameField.getText(), Main.getDigest(passwordField.getText()));
                 tempUser.setStatus("Active");
-                Main.currentUser = tempUser;
-                Main.USER_TABLE.child(tempUser.getUsername()).setValue(tempUser.toMap());
-                Main.allUsers.put(tempUser.getUsername(), tempUser);
+                Main.setCurrentUser(tempUser);
+                Main.getDBReference().child("users").child(tempUser.getUsername()).setValue(tempUser.toMap());
+                Main.getAllUsers().put(tempUser.getUsername(), tempUser);
                 Main.loadingCallback("dashboard.fxml");
             }
         });

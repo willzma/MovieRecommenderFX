@@ -7,16 +7,19 @@ public class Rating implements Comparable<Rating> {
     private final float rating;
     private final String comment;
     private final User poster;
+    private final String date;
 
-    public Rating(float rating, String comment, User poster) {
+    public Rating(float rating, String comment, User poster, String date) {
         this.rating = rating;
         this.comment = comment;
         this.poster = poster;
+        this.date = date;
     }
 
     public float getRating() { return rating; }
     public String getComment() { return comment; }
     public User getPoster() { return poster; }
+    public String getDate() { return date; }
 
     public Map<String, String> toMap() {
         Map<String, String> toMap = new HashMap<String, String>();
@@ -24,6 +27,7 @@ public class Rating implements Comparable<Rating> {
         toMap.put("rating", String.valueOf(rating));
         toMap.put("comment", comment);
         toMap.put("user", poster.getUsername());
+        toMap.put("date", date);
 
         return toMap;
     }
@@ -34,6 +38,7 @@ public class Rating implements Comparable<Rating> {
                 "rating=" + rating +
                 ", comment='" + comment + '\'' +
                 ", poster=" + poster +
+                ", date='" + date + '\'' +
                 '}';
     }
 
@@ -50,17 +55,17 @@ public class Rating implements Comparable<Rating> {
         Rating rating1 = (Rating) o;
 
         if (Float.compare(rating1.rating, rating) != 0) return false;
-        if (comment != null ? !comment.equals(rating1.comment) : rating1.comment != null)
-            return false;
-        return poster != null ? poster.equals(rating1.poster) : rating1.poster == null;
-
+        if (!comment.equals(rating1.comment)) return false;
+        if (!poster.equals(rating1.poster)) return false;
+        return date.equals(rating1.date);
     }
 
     @Override
     public int hashCode() {
         int result = (rating != +0.0f ? Float.floatToIntBits(rating) : 0);
-        result = 31 * result + (comment != null ? comment.hashCode() : 0);
-        result = 31 * result + (poster != null ? poster.hashCode() : 0);
+        result = 31 * result + comment.hashCode();
+        result = 31 * result + poster.hashCode();
+        result = 31 * result + date.hashCode();
         return result;
     }
 }

@@ -12,12 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -47,6 +42,7 @@ public class DashboardController implements Initializable {
     @FXML private ListView<MovieContainer> listView;
     @FXML private Text loadingText;
     @FXML private ProgressIndicator loadingWheel;
+    @FXML private TabPane tabPane;
     @FXML private ButtonBar buttonBar;
     @FXML private Button closeButton;
 
@@ -58,8 +54,11 @@ public class DashboardController implements Initializable {
         assert listView != null : "id=\"listView\" was not injected: check your FXML file 'dashboard.fxml'.";
         assert loadingText != null : "id=\"loadingText\" was not injected: check your FXML file 'dashboard.fxml'.";
         assert loadingWheel != null : "id=\"loadingWheel\" was not injected: check your FXML file 'dashboard.fxml'.";
+        assert tabPane != null : "id=\"tabPane\" was not injected: check your FXML file 'dashboard.fxml'.";
         assert buttonBar != null : "id=\"buttonBar\" was not injected: check your FXML file 'dashboard.fxml'.";
         assert closeButton != null : "id=\"closeButton\" was not injected: check your FXML file 'dashboard.fxml'.";
+
+        Main.setTabPane(tabPane);
 
         // initialize control logic
         loadingText.setVisible(false);
@@ -236,9 +235,7 @@ public class DashboardController implements Initializable {
         }
 
         @Override
-        public int hashCode() {
-            return title.hashCode();
-        }
+        public int hashCode() { return title.hashCode(); }
     }
 
     private class MovieCell extends ListCell<MovieContainer> {

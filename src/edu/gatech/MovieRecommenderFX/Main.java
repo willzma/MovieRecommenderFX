@@ -7,6 +7,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -34,16 +35,15 @@ public class Main extends Application {
     private static MessageDigest sharedDigest;
 
     // Shared Firebase database table references
-    public static Firebase DATABASE;
-    public static Firebase USER_TABLE;
-    public static Firebase MOVIE_TABLE;
+    private static Firebase DATABASE;
 
     // General global resources
-    public static User currentUser;
-    public static Map<String, User> allUsers;
-    public static Map<String, Movie> allMovies;
+    private static User currentUser;
+    private static Map<String, User> allUsers;
+    private static Map<String, Movie> allMovies;
 
     private static Main main;
+    private static TabPane tabPane;
 
     // Window position tracking
     private static double xOffset = 0;
@@ -58,8 +58,6 @@ public class Main extends Application {
 
         // Load Firebase references
         DATABASE = new Firebase("https://movierecommender.firebaseio.com/");
-        USER_TABLE = DATABASE.child("users");
-        MOVIE_TABLE = DATABASE.child("movies");
 
         currentUser = null;
         allUsers = new ConcurrentHashMap<>();
@@ -92,11 +90,24 @@ public class Main extends Application {
     @Override
     public void stop() { System.exit(0); }
 
-    public static Main getInstance() { return main; }
+    public static void main(String[] args) { launch(args); }
 
+    // User/movie getters
+    public static User getCurrentUser() { return currentUser; }
+    public static Map<String, User> getAllUsers() { return allUsers; }
+    public static Map<String, Movie> getAllMovies() { return allMovies; }
+    public static Firebase getDBReference() { return DATABASE; }
+
+    // Current user setter
+    public static void setCurrentUser(User u) { currentUser = u; }
+
+    // Window getters
+    public static Main getInstance() { return main; }
+    public static TabPane getTabPane() { return tabPane; }
     public static Stage getSharedStage() { return sharedStage; }
 
-    public static void main(String[] args) { launch(args); }
+    // Window setters
+    public static void setTabPane(TabPane tabPane2) { tabPane = tabPane2; }
 
     public static String getDigest(String password) {
         byte[] hash = sharedDigest.digest(password.getBytes());

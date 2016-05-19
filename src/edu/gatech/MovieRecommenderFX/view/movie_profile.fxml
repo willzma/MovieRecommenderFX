@@ -86,7 +86,7 @@
                 </Text>
             </children>
         </HBox>
-        <ButtonBar fx:id="buttonBar" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to bottom, #474642, #3C3B37);" GridPane.columnSpan="2">
+        <ButtonBar fx:id="buttonBar" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to bottom, #474642, #3C3B37);" GridPane.columnSpan="2">
             <buttons>
                 <Button fx:id="closeButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" style="-fx-background-radius: 12em; -fx-min-width: 12px;
                             -fx-min-height: 12px; -fx-max-width: 12px; -fx-max-height: 12px; -fx-background-color: #FF5C5C; -fx-background-insets: 0px; -fx-border-color: #E33E41;

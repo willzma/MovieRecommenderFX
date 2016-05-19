@@ -5,45 +5,61 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LoginController implements Initializable {
+public class DialogController implements Initializable {
 
-    @FXML private TextField usernameField;
-    @FXML private PasswordField passwordField;
-    @FXML private Button loginButton;
-    @FXML private Button cancelButton;
-    @FXML private Button registerButton;
-    @FXML private Text messageDialog;
+    @FXML private Text dialogText;
+    @FXML private ButtonBar choiceButtonBar;
+    @FXML private Button yesButton;
+    @FXML private Button noButton;
+    @FXML private ImageView imageView;
+
     @FXML private ButtonBar buttonBar;
     @FXML private Button closeButton;
 
+    // Window variables
+    private Stage stage;
+    private double xOffset = 0;
+    private double yOffset = 0;
+
+    private Stage owner;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        assert usernameField != null : "id=\"usernameField\" was not injected: check your FXML file 'login.fxml'.";
-        assert passwordField != null : "id=\"passwordField\" was not injected: check your FXML file 'login.fxml'.";
-        assert loginButton != null : "id=\"loginButton\" was not injected: check your FXML file 'login.fxml'.";
-        assert cancelButton != null : "id=\"cancelButton\" was not injected: check your FXML file 'login.fxml'.";
-        assert registerButton != null : "id=\"registerButton\" was not injected: check your FXML file 'login.fxml'.";
-        assert messageDialog != null : "id=\"messageDialog\" was not injected: check your FXML file 'login.fxml'.";
-        assert buttonBar != null : "id=\"buttonBar\" was not injected: check your FXML file 'login.fxml'.";
-        assert closeButton != null : "id=\"closeButton\" was not injected: check your FXML file 'login.fxml'.";
+        assert dialogText != null : "id=\"dialogText\" was not injected: check your FXML file 'dialog.fxml'.";
+        assert choiceButtonBar != null : "id=\"choiceButtonBar\" was not injected: check your FXML file 'dialog.fxml'.";
+        assert yesButton != null : "id=\"yesButton\" was not injected: check your FXML file 'dialog.fxml'.";
+        assert noButton != null : "id=\"noButton\" was not injected: check your FXML file 'dialog.fxml'.";
+        assert buttonBar != null : "id=\"buttonBar\" was not injected: check your FXML file 'dialog.fxml'.";
+        assert closeButton != null : "id=\"closeButton\" was not injected: check your FXML file 'dialog.fxml'.";
 
-        // initialize button logic
-        buttonBar.setOnMousePressed(Main::panePressed);
-        buttonBar.setOnMouseDragged(Main::paneDragged);
+        imageView.setImage(new Image(Main.getInstance().getClass().getResourceAsStream("view\\icons\\errorAlert.png")));
 
-        closeButton.setOnMouseClicked(event -> {
-            Main.getSharedStage().close();
-            Main.getInstance().stop();
+        // default control logic
+        yesButton.setOnMouseClicked(event -> {
+            stage.close();
+            owner.close();
+            Main.getTabPane().getSelectionModel().select(3);
         });
+
+        noButton.setOnMouseClicked(event -> stage.close());
+
+        buttonBar.setOnMousePressed(event -> {
+            xOffset = stage.getX() - event.getScreenX();
+            yOffset = stage.getY() - event.getScreenY();
+        });
+        buttonBar.setOnMouseDragged(event -> {
+            stage.setX(event.getScreenX() + xOffset);
+            stage.setY(event.getScreenY() + yOffset);
+        });
+        closeButton.setOnMouseClicked(event -> stage.close());
         closeButton.setOnMouseEntered(event -> closeButton.setStyle("-fx-background-radius: 12em;" +
                                                                     "-fx-min-width: 12px;" +
                                                                     "-fx-min-height: 12px;" +
@@ -74,30 +90,18 @@ public class LoginController implements Initializable {
                                                                     "-fx-border-color: #4E0002;" +
                                                                     "-fx-border-radius: 50%;" +
                                                                     "-fx-padding: 0px;"));
-        loginButton.setOnMouseClicked(event -> {
-            if (!Main.getAllUsers().containsKey(usernameField.getText())) {
-                messageDialog.setFill(Color.RED);
-                messageDialog.setText("No user exists by that name.");
-            } else if ("".equals(passwordField.getText())) {
-                messageDialog.setFill(Color.RED);
-                messageDialog.setText("Please enter a password.");
-            } else {
-                String username = usernameField.getText();
-                String theirHash = Main.getDigest(passwordField.getText());
-
-                if (theirHash.equals(Main.getAllUsers().get(username).getPasswordHash())) {
-                    messageDialog.setFill(Color.GREEN);
-                    messageDialog.setText("Login successful.");
-                    Main.setCurrentUser(Main.getAllUsers().get(username));
-                    Main.loadingCallback("dashboard.fxml");
-                } else {
-                    messageDialog.setFill(Color.RED);
-                    messageDialog.setText("The password you entered is incorrect.");
-                }
-            }
-        });
-
-        cancelButton.setOnMouseClicked(event -> Main.getInstance().stop());
-        registerButton.setOnMouseClicked(event -> Main.loadingCallback("register.fxml"));
     }
+
+    public Text getDialogText() { return dialogText; }
+    public ButtonBar getChoiceButtonBar() { return choiceButtonBar; }
+    public Button getYesButton() { return yesButton; }
+    public Button getNoButton() { return noButton; }
+
+    public void setDialogText(Text dialogText) { this.dialogText = dialogText; }
+    public void setChoiceButtonBar(ButtonBar choiceButtonBar) { this.choiceButtonBar = choiceButtonBar; }
+    public void setYesButton(Button yesButton) { this.yesButton = yesButton; }
+    public void setNoButton(Button noButton) { this.noButton = noButton; }
+
+    public void sendOwner(Stage stage) { this.owner = stage; }
+    public void sendStage(Stage stage) { this.stage = stage; }
 }
