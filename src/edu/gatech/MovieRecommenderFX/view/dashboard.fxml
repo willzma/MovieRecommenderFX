@@ -91,12 +91,12 @@
           </Tab>
             <Tab closable="false" text="Top Rated">
                <content>
-                  <ListView prefHeight="200.0" prefWidth="200.0" />
+                  <ListView fx:id="topRatedListView" prefHeight="200.0" prefWidth="200.0" />
                </content>
             </Tab>
             <Tab closable="false" text="Major Recommended">
                <content>
-                  <ListView prefHeight="200.0" prefWidth="200.0" />
+                  <ListView fx:id="majorRatedListView" prefHeight="200.0" prefWidth="200.0" />
                </content>
             </Tab>
           <Tab closable="false" text="Your Profile">

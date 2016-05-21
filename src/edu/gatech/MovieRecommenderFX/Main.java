@@ -58,7 +58,7 @@ public class Main extends Application {
         sharedStage = primaryStage;
 
         // Load Firebase references
-        DATABASE = new Firebase("https://movierecommender.firebaseio.com/");
+        DATABASE = new Firebase("https://project-5572201613262243595.firebaseio.com/");
 
         currentUser = null;
         allUsers = new ConcurrentHashMap<>();

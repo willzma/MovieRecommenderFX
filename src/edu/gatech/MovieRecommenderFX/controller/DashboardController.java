@@ -3,6 +3,7 @@ package edu.gatech.MovieRecommenderFX.controller;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import edu.gatech.MovieRecommenderFX.Main;
+import edu.gatech.MovieRecommenderFX.model.Movie;
 import edu.gatech.MovieRecommenderFX.model.Profile;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
@@ -60,6 +61,9 @@ public class DashboardController implements Initializable {
     @FXML private ComboBox profileMajorMenu;
     @FXML private Text profileMessage;
 
+    @FXML private ListView<String> topRatedListView;
+    @FXML private ListView<String> majorRatedListView;
+
     private Text listViewPlaceholder;
 
     @Override
@@ -81,6 +85,9 @@ public class DashboardController implements Initializable {
         assert profileSaveButton != null : "id=\"profileSaveButton\" was not injected: check your FXML file 'dashboard.fxml'.";
         assert profileMajorMenu != null : "id=\"profileMajorMenu\" was not injected: check your FXML file 'dashboard.fxml'.";
         assert profileMessage != null : "id=\"profileMessage\" was not injected: check your FXML file 'dashboard.fxml'.";
+
+        assert topRatedListView != null : "id=\"topRatedListView\" was not injected: check your FXML file 'dashboard.fxml'.";
+        assert majorRatedListView != null : "id=\"majorRatedListView\" was not injected: check your FXML file 'dashboard.fxml'.";
 
         assert buttonBar != null : "id=\"buttonBar\" was not injected: check your FXML file 'dashboard.fxml'.";
         assert closeButton != null : "id=\"closeButton\" was not injected: check your FXML file 'dashboard.fxml'.";
@@ -174,6 +181,31 @@ public class DashboardController implements Initializable {
             }
         });
 
+        tabPane.getSelectionModel().selectedIndexProperty().addListener((ov, oldValue, newValue) -> {
+            if (newValue.equals(1)) {
+                topRatedListView.setPlaceholder(new Text("There are no ratings yet in the database. Be the first to review a movie!"));
+                for (Movie m : Main.getAllMovies().values()) {
+                    String mText = String.format("%s: %f from %d users", m.getTitle(), m.getAverageRating(), m.getRatings().size());
+                    if (!topRatedListView.getItems().contains(mText)) {
+                        topRatedListView.getItems().add(mText);
+                    }
+                }
+            } else if (newValue.equals(2)) {
+                if (Main.getCurrentUser().getProfile() == null) {
+                    majorRatedListView.setPlaceholder(new Text("You need to make a profile to view movie ratings by major."));
+                } else {
+                    majorRatedListView.setPlaceholder(new Text(String.format("No %s majors have rated a movie yet. Be the first to review a movie!",
+                            Main.getCurrentUser().getProfile().getMajor())));
+                    for (Movie m : Main.getAllMovies().values()) {
+                        String mText = String.format("%s: %f from %d users", m.getTitle(), m.getAverageMajorRating(Main.getCurrentUser().getProfile().getMajor()), m.getRatings().size());
+                        if (!majorRatedListView.getItems().contains(mText)) {
+                            majorRatedListView.getItems().add(mText);
+                        }
+                    }
+                }
+            }
+        });
+
         // profile logic
         profileDescription.setPromptText("Tell us a little bit about yourself.");
         memberSinceDate.setText(String.format("Member since %s", Main.getCurrentUser().getMemberSince()));
@@ -232,7 +264,7 @@ public class DashboardController implements Initializable {
                 Main.getDBReference().child("users").child(Main.getCurrentUser().getUsername()).updateChildren(keyVal);
                 profileMessage.setVisible(true);
                 FadeTransition ft = new FadeTransition(Duration.millis(500), profileMessage);
-                ft.setDelay(Duration.millis(2000));
+                ft.setDelay(Duration.millis(1000));
                 ft.setFromValue(1.0);
                 ft.setToValue(0.0);
                 ft.play();
