@@ -9,13 +9,15 @@ public class User implements Comparable<User> {
     private String username;
     private String passwordHash;
     private String status;
+    private String memberSince;
     private Profile profile;
 
-    public User(String name, String email, String username, String passwordHash) {
+    public User(String name, String email, String username, String passwordHash, String memberSince) {
         this.name = name;
         this.email = email;
         this.username = username;
         this.passwordHash = passwordHash;
+        this.memberSince = memberSince;
     }
 
     public String getName() { return name; }
@@ -23,6 +25,7 @@ public class User implements Comparable<User> {
     public String getUsername() { return username; }
     public String getPasswordHash() { return passwordHash; }
     public String getStatus() { return status; }
+    public String getMemberSince() { return memberSince; }
     public Profile getProfile() { return profile; }
 
     public void setName(String name) { this.name = name; }
@@ -30,6 +33,7 @@ public class User implements Comparable<User> {
     public void setUsername(String username) { this.username = username; }
     public void setPasswordHash(String passwordHash) { this.passwordHash = passwordHash; }
     public void setStatus(String status) { this.status = status; }
+    public void setMemberSince(String memberSince) { this.memberSince = memberSince; }
     public void setProfile(Profile profile) { this.profile = profile; }
 
     public Map<String, String> toMap() {
@@ -40,6 +44,7 @@ public class User implements Comparable<User> {
         toMap.put("username", username);
         toMap.put("passwordHash", passwordHash);
         toMap.put("status", status);
+        toMap.put("memberSince", memberSince);
 
         if (profile == null) {
             toMap.put("major", "");
@@ -60,6 +65,7 @@ public class User implements Comparable<User> {
                 ", username='" + username + '\'' +
                 ", passwordHash='" + passwordHash + '\'' +
                 ", status='" + status + '\'' +
+                ", memberSince='" + memberSince + '\'' +
                 ", profile=" + profile +
                 '}';
     }
@@ -86,8 +92,9 @@ public class User implements Comparable<User> {
             return false;
         if (status != null ? !status.equals(user.status) : user.status != null)
             return false;
+        if (memberSince != null ? !memberSince.equals(user.memberSince) : user.memberSince != null)
+            return false;
         return profile != null ? profile.equals(user.profile) : user.profile == null;
-
     }
 
     @Override
@@ -97,6 +104,7 @@ public class User implements Comparable<User> {
         result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (passwordHash != null ? passwordHash.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (memberSince != null ? memberSince.hashCode() : 0);
         result = 31 * result + (profile != null ? profile.hashCode() : 0);
         return result;
     }

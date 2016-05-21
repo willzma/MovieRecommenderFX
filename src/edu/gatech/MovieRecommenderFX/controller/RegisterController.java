@@ -11,6 +11,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class RegisterController implements Initializable {
@@ -24,6 +26,8 @@ public class RegisterController implements Initializable {
     @FXML private Text messageDialog;
     @FXML private ButtonBar buttonBar;
     @FXML private Button closeButton;
+
+    private static SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -86,7 +90,7 @@ public class RegisterController implements Initializable {
             } else {
                 messageDialog.setFill(Color.GREEN);
                 messageDialog.setText("Account registered.");
-                User tempUser = new User(nameField.getText(), emailField.getText(), usernameField.getText(), Main.getDigest(passwordField.getText()));
+                User tempUser = new User(nameField.getText(), emailField.getText(), usernameField.getText(), Main.getDigest(passwordField.getText()), sdf.format(new Date()));
                 tempUser.setStatus("Active");
                 Main.setCurrentUser(tempUser);
                 Main.getDBReference().child("users").child(tempUser.getUsername()).setValue(tempUser.toMap());

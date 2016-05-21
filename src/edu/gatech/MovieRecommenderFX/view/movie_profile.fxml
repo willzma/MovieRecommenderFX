@@ -47,7 +47,7 @@
                 <Insets bottom="250.0" left="-75.0" />
             </GridPane.margin>
             <font>
-                <Font name="Arial Black" size="18.0" />
+                <Font name="Ubuntu Bold" size="18.0" />
             </font>
         </Text>
         <HBox maxHeight="30.0" prefHeight="30.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -57,12 +57,12 @@
             <children>
                 <Text fx:id="ratedText" strokeType="OUTSIDE" strokeWidth="0.0" text="PG-13">
                     <font>
-                        <Font name="Arial" size="12.0" />
+                        <Font name="Ubuntu" size="12.0" />
                     </font>
                 </Text>
                 <Text fx:id="runtimeText" strokeType="OUTSIDE" strokeWidth="0.0" text="142 min">
                     <font>
-                        <Font name="Arial" size="12.0" />
+                        <Font name="Ubuntu" size="12.0" />
                     </font>
                     <HBox.margin>
                         <Insets left="15.0" />
@@ -73,7 +73,7 @@
                         <Insets left="15.0" />
                     </HBox.margin>
                     <font>
-                        <Font name="Arial" size="12.0" />
+                        <Font name="Ubuntu" size="12.0" />
                     </font>
                 </Text>
                 <Text fx:id="releasedText" strokeType="OUTSIDE" strokeWidth="0.0" text="23 Mar 2012">
@@ -81,7 +81,7 @@
                         <Insets left="15.0" />
                     </HBox.margin>
                     <font>
-                        <Font name="Arial" size="12.0" />
+                        <Font name="Ubuntu" size="12.0" />
                     </font>
                 </Text>
             </children>
@@ -151,12 +151,12 @@
             <Insets left="-45.0" top="-300.0" />
          </GridPane.margin>
          <font>
-            <Font name="Arial Black" size="18.0" />
+            <Font name="Ubuntu Bold" size="18.0" />
          </font>
       </Text>
       <Button fx:id="submitButton" mnemonicParsing="false" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <font>
-            <Font name="Arial" size="14.0" />
+            <Font name="Ubuntu" size="14.0" />
          </font>
          <GridPane.margin>
             <Insets bottom="15.0" left="118.0" top="105.0" />

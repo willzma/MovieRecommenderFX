@@ -38,47 +38,47 @@
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" GridPane.columnIndex="1" GridPane.rowIndex="7">
          <font>
-            <Font name="Arial" size="18.0" />
+            <Font name="Ubuntu" size="18.0" />
          </font></Text>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Email" GridPane.columnIndex="1" GridPane.rowIndex="8">
          <font>
-            <Font name="Arial" size="18.0" />
+            <Font name="Ubuntu" size="18.0" />
          </font></Text>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username" GridPane.columnIndex="1" GridPane.rowIndex="9">
          <font>
-            <Font name="Arial" size="18.0" />
+            <Font name="Ubuntu" size="18.0" />
          </font></Text>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Password" GridPane.columnIndex="1" GridPane.rowIndex="10">
          <font>
-            <Font name="Arial" size="18.0" />
+            <Font name="Ubuntu" size="18.0" />
          </font></Text>
       <Button fx:id="registerButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="240.0" text="Register" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="12">
          <font>
-            <Font name="Arial" size="18.0" />
+            <Font name="Ubuntu" size="18.0" />
          </font></Button>
       <TextField fx:id="nameField" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="7">
          <font>
-            <Font name="Arial" size="18.0" />
+            <Font name="Ubuntu" size="18.0" />
          </font>
       </TextField>
       <TextField fx:id="emailField" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="8">
          <font>
-            <Font name="Arial" size="18.0" />
+            <Font name="Ubuntu" size="18.0" />
          </font>
       </TextField>
       <TextField fx:id="usernameField" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="9">
          <font>
-            <Font name="Arial" size="18.0" />
+            <Font name="Ubuntu" size="18.0" />
          </font>
       </TextField>
       <PasswordField fx:id="passwordField" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="10">
          <font>
-            <Font name="Arial" size="18.0" />
+            <Font name="Ubuntu" size="18.0" />
          </font>
       </PasswordField>
       <Button fx:id="cancelButton" mnemonicParsing="false" prefHeight="33.0" prefWidth="240.0" text="Cancel" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="12">
          <font>
-            <Font name="Arial" size="18.0" />
+            <Font name="Ubuntu" size="18.0" />
          </font>
       </Button>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Movie Recommender FX" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="3">

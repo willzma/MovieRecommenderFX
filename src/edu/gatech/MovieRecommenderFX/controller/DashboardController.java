@@ -3,6 +3,8 @@ package edu.gatech.MovieRecommenderFX.controller;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import edu.gatech.MovieRecommenderFX.Main;
+import edu.gatech.MovieRecommenderFX.model.Profile;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,19 +25,20 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class DashboardController implements Initializable {
 
+    // search movies FXML items
     @FXML private TextField searchField;
     @FXML private Button goButton;
     @FXML private GridPane gridPane;
@@ -46,6 +49,19 @@ public class DashboardController implements Initializable {
     @FXML private ButtonBar buttonBar;
     @FXML private Button closeButton;
 
+    // profile FXML items
+    @FXML private TextArea profileDescription;
+    @FXML private Text memberSinceDate;
+    @FXML private Text profileUsername;
+    @FXML private Text profileName;
+    @FXML private Text profileEmailAddress;
+    @FXML private ImageView profilePicture;
+    @FXML private Button profileSaveButton;
+    @FXML private ComboBox profileMajorMenu;
+    @FXML private Text profileMessage;
+
+    private Text listViewPlaceholder;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         assert searchField != null : "id=\"searchField\" was not injected: check your FXML file 'dashboard.fxml'.";
@@ -55,8 +71,24 @@ public class DashboardController implements Initializable {
         assert loadingText != null : "id=\"loadingText\" was not injected: check your FXML file 'dashboard.fxml'.";
         assert loadingWheel != null : "id=\"loadingWheel\" was not injected: check your FXML file 'dashboard.fxml'.";
         assert tabPane != null : "id=\"tabPane\" was not injected: check your FXML file 'dashboard.fxml'.";
+
+        assert profileDescription != null : "id=\"profileDescription\" was not injected: check your FXML file 'dashboard.fxml'.";
+        assert memberSinceDate != null : "id=\"memberSinceDate\" was not injected: check your FXML file 'dashboard.fxml'.";
+        assert profileUsername != null : "id=\"profileUsername\" was not injected: check your FXML file 'dashboard.fxml'.";
+        assert profileName != null : "id=\"profileName\" was not injected: check your FXML file 'dashboard.fxml'.";
+        assert profileEmailAddress != null : "id=\"profileEmailAddress\" was not injected: check your FXML file 'dashboard.fxml'.";
+        assert profilePicture != null : "id=\"profilePicture\" was not injected: check your FXML file 'dashboard.fxml'.";
+        assert profileSaveButton != null : "id=\"profileSaveButton\" was not injected: check your FXML file 'dashboard.fxml'.";
+        assert profileMajorMenu != null : "id=\"profileMajorMenu\" was not injected: check your FXML file 'dashboard.fxml'.";
+        assert profileMessage != null : "id=\"profileMessage\" was not injected: check your FXML file 'dashboard.fxml'.";
+
         assert buttonBar != null : "id=\"buttonBar\" was not injected: check your FXML file 'dashboard.fxml'.";
         assert closeButton != null : "id=\"closeButton\" was not injected: check your FXML file 'dashboard.fxml'.";
+
+        listViewPlaceholder = new Text("Type a title into the search bar and press go to get started.");
+        listViewPlaceholder.setFont(new Font("Ubuntu", 16));
+
+        listView.setPlaceholder(listViewPlaceholder);
 
         Main.setTabPane(tabPane);
 
@@ -117,6 +149,7 @@ public class DashboardController implements Initializable {
 
                                 Platform.runLater(() -> {
                                     listView = new ListView<>(list);
+                                    listView.setPlaceholder(listViewPlaceholder);
                                     listView.setPrefHeight(390);
                                     listView.setMaxHeight(390);
                                     listView.setPrefWidth(720);
@@ -138,6 +171,71 @@ public class DashboardController implements Initializable {
                     loadingText.setText("An error occurred.");
                     loadingWheel.setVisible(false);
                 }
+            }
+        });
+
+        // profile logic
+        profileDescription.setPromptText("Tell us a little bit about yourself.");
+        memberSinceDate.setText(String.format("Member since %s", Main.getCurrentUser().getMemberSince()));
+        profileUsername.setText(String.format("Username: %s", Main.getCurrentUser().getUsername()));
+        profileName.setText(String.format("Name: %s", Main.getCurrentUser().getName()));
+        profileEmailAddress.setText(String.format("Email Address: %s", Main.getCurrentUser().getEmail()));
+        profilePicture.setImage(new Image(Main.class.getResourceAsStream("view\\icons\\noProfilePicture.png"), 128, 128, false, false));
+        profileMessage.setFill(Color.GREEN);
+        profileMessage.setVisible(false);
+
+        ArrayList<String> mList = new ArrayList<>(Arrays.asList("Computer Science", "Electrical Engineering", "Mechanical Engineering",
+                "Industrial and Systems Engineering", "Mathematics", "Physics", "Chemistry", "Chemical Engineering"));
+        ObservableList<String> list = FXCollections.observableArrayList(mList);
+        profileMajorMenu.setItems(list);
+
+        if (Main.getCurrentUser().getProfile() != null) {
+            profileMajorMenu.getSelectionModel().select(Main.getCurrentUser().getProfile().getMajor());
+            profileDescription.setText(Main.getCurrentUser().getProfile().getDescription());
+        }
+
+        profileSaveButton.setOnMouseClicked(event -> {
+            if (profileMajorMenu.getSelectionModel().getSelectedItem() == null || "".equals(profileDescription.getText())) {
+                try {
+                    Stage dialog = new Stage();
+                    dialog.initStyle(StageStyle.TRANSPARENT);
+                    dialog.initModality(Modality.APPLICATION_MODAL);
+                    dialog.getIcons().add(new Image(Main.getInstance().getClass().getResourceAsStream("view\\icons\\icon.png")));
+                    dialog.setResizable(false);
+
+                    FXMLLoader fxmlLoader = new FXMLLoader(Main.getInstance().getClass().getResource("view\\dialog.fxml"));
+                    Parent root = fxmlLoader.load();
+                    Rectangle windowRect = new Rectangle(600, 100);
+                    windowRect.setArcHeight(15.0);
+                    windowRect.setArcWidth(15.0);
+                    root.setClip(windowRect);
+
+                    Scene scene = new Scene(root, 600, 100);
+                    scene.setFill(Color.TRANSPARENT);
+
+                    DialogController dc = fxmlLoader.getController();
+                    dc.sendStage(dialog);
+                    dc.getDialogText().setText("Are you sure you want to continue? You cannot post reviews without a description and major.");
+                    dc.getYesButton().setOnMouseClicked(event1 -> dialog.close());
+
+                    dialog.setScene(scene);
+                    dialog.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                String selected = profileMajorMenu.getSelectionModel().getSelectedItem().toString();
+                Main.getCurrentUser().setProfile(new Profile(selected, profileDescription.getText()));
+                HashMap<String, Object> keyVal = new HashMap<>();
+                keyVal.put("major", selected);
+                keyVal.put("description", profileDescription.getText());
+                Main.getDBReference().child("users").child(Main.getCurrentUser().getUsername()).updateChildren(keyVal);
+                profileMessage.setVisible(true);
+                FadeTransition ft = new FadeTransition(Duration.millis(500), profileMessage);
+                ft.setDelay(Duration.millis(2000));
+                ft.setFromValue(1.0);
+                ft.setToValue(0.0);
+                ft.play();
             }
         });
 
@@ -279,28 +377,28 @@ public class DashboardController implements Initializable {
                 gridPane.add(poster, 0, 0);
 
                 titleYear = new Text(mc.title);
-                titleYear.setFont(new Font("Arial Black", 18));
+                titleYear.setFont(new Font("Ubuntu Bold", 18));
                 gridPane.add(titleYear, 1, 0);
 
                 this.runtime = new Text(mc.runtime);
-                this.runtime.setFont(new Font("Arial", 14));
+                this.runtime.setFont(new Font("Ubuntu", 14));
                 this.runtime.setFill(Color.GRAY);
-                HBox.setMargin(this.runtime, new Insets(2, 0, 0, 0));
+                HBox.setMargin(this.runtime, new Insets(0, 0, 0, 0));
 
                 IMDb = new Text(String.format("IMDb: %s/10 from %s", mc.imdbRating, mc.imdbVotes));
-                IMDb.setFont(new Font("Arial Black", 14));
+                IMDb.setFont(new Font("Ubuntu Bold", 14));
                 HBox.setMargin(IMDb, new Insets(0, 0, 0, 15));
 
                 ImageView rottenTom = new ImageView(new Image(Main.class.getResourceAsStream("view\\icons\\rotten_tomatoes.png"), 15, 15, false, false));
-                HBox.setMargin(rottenTom, new Insets(2, 0, 0, 25));
+                HBox.setMargin(rottenTom, new Insets(0, 0, 0, 25));
 
                 this.rotten = new Text(mc.rotten);
-                this.rotten.setFont(new Font("Arial", 14));
-                HBox.setMargin(this.rotten, new Insets(2, 0, 0, 5));
+                this.rotten.setFont(new Font("Ubuntu", 14));
+                HBox.setMargin(this.rotten, new Insets(0, 0, 0, 5));
 
                 this.metascore = new Text(String.format("Metascore: %s/100", mc.metascore));
-                this.metascore.setFont(new Font("Arial", 14));
-                HBox.setMargin(this.metascore, new Insets(2, 0, 0, 15));
+                this.metascore.setFont(new Font("Ubuntu", 14));
+                HBox.setMargin(this.metascore, new Insets(0, 0, 0, 15));
 
                 hBox = new HBox();
                 hBox.setPrefWidth(495);
@@ -309,7 +407,7 @@ public class DashboardController implements Initializable {
                 gridPane.add(hBox, 1, 1);
 
                 this.plot = new Text((!"N/A".equals(mc.plot)) ? mc.plot : "No plot description available.");
-                this.plot.setFont(new Font("Arial", 14));
+                this.plot.setFont(new Font("Ubuntu", 14));
                 this.plot.setWrappingWidth(480);
                 GridPane.setMargin(this.plot, new Insets(0, 0, 0, 0));
                 GridPane.setRowSpan(this.plot, 2);

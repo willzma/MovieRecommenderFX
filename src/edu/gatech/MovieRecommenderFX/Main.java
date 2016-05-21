@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -69,6 +70,9 @@ public class Main extends Application {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
+
+        Font.loadFont(getClass().getResource("view/fonts/Ubuntu-B.ttf").toExternalForm(), 12);
+        Font.loadFont(getClass().getResource("view/fonts/Ubuntu-R.ttf").toExternalForm(), 12);
 
         Parent root = FXMLLoader.load(getClass().getResource("view\\loading_screen.fxml"));
         windowRect = new Rectangle(720, 480);

@@ -44,8 +44,9 @@ public class LoadingScreenController implements Initializable {
                     String email = postSnapshot.child("email").getValue(String.class);
                     String username = postSnapshot.child("username").getValue(String.class);
                     String passwordHash = postSnapshot.child("passwordHash").getValue(String.class);
+                    String memberSince = postSnapshot.child("memberSince").getValue(String.class);
 
-                    User tempU = new User(name, email, username, passwordHash);
+                    User tempU = new User(name, email, username, passwordHash, memberSince);
 
                     String major = postSnapshot.child("major").getValue(String.class);
                     String description = postSnapshot.child("description").getValue(String.class);

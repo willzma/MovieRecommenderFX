@@ -3,12 +3,14 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -50,7 +52,7 @@
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search Movies" textAlignment="CENTER" GridPane.rowIndex="1">
                            <font>
-                              <Font name="Arial Bold" size="18.0" />
+                              <Font name="Ubuntu Bold" size="18.0" />
                            </font>
                            <GridPane.margin>
                               <Insets left="10.0" />
@@ -59,7 +61,7 @@
                         <TextField fx:id="searchField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
                         <Button fx:id="goButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Go" GridPane.columnIndex="3" GridPane.rowIndex="1">
                            <font>
-                              <Font name="Arial" size="16.0" />
+                              <Font name="Ubuntu" size="16.0" />
                            </font>
                            <GridPane.margin>
                               <Insets left="10.0" />
@@ -70,7 +72,7 @@
                            <children>
                               <Text fx:id="loadingText" strokeType="OUTSIDE" strokeWidth="0.0" text="Searching..." textAlignment="CENTER">
                                  <font>
-                                    <Font name="Arial Bold" size="18.0" />
+                                    <Font name="Ubuntu Bold" size="18.0" />
                                  </font>
                                  <VBox.margin>
                                     <Insets left="160.0" top="105.0" />
@@ -88,32 +90,96 @@
                </content>
           </Tab>
             <Tab closable="false" text="Top Rated">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
+               <content>
+                  <ListView prefHeight="200.0" prefWidth="200.0" />
+               </content>
             </Tab>
             <Tab closable="false" text="Major Recommended">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
+               <content>
+                  <ListView prefHeight="200.0" prefWidth="200.0" />
+               </content>
             </Tab>
           <Tab closable="false" text="Your Profile">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
+               <content>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="10.0" prefWidth="180.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="360.0" minWidth="10.0" prefWidth="360.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="10.0" prefWidth="180.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="16.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="140.0" minHeight="10.0" prefHeight="140.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="140.0" minHeight="10.0" prefHeight="140.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="140.0" minHeight="10.0" prefHeight="140.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <TextArea fx:id="profileDescription" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets bottom="-45.0" left="15.0" right="15.0" top="60.0" />
+                           </GridPane.margin>
+                        </TextArea>
+                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <children>
+                              <Text fx:id="memberSinceDate" strokeType="OUTSIDE" strokeWidth="0.0" text="Member since May 21, 2016">
+                                 <font>
+                                    <Font name="Ubuntu" size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="profileUsername" strokeType="OUTSIDE" strokeWidth="0.0" text="Username: bwaters">
+                                 <font>
+                                    <Font name="Ubuntu" size="16.0" />
+                                 </font></Text>
+                              <Text fx:id="profileName" strokeType="OUTSIDE" strokeWidth="0.0" text="Name: Bob Waters">
+                                  <font>
+                                    <Font name="Ubuntu" size="16.0" />
+                                  </font></Text>
+                              <Text fx:id="profileEmailAddress" strokeType="OUTSIDE" strokeWidth="0.0" text="Email Address: watersr@cc.gatech.edu">
+                                  <font>
+                                    <Font name="Ubuntu" size="16.0" />
+                                  </font></Text>
+                           </children>
+                           <GridPane.margin>
+                              <Insets left="45.0" top="15.0" />
+                           </GridPane.margin>
+                        </VBox>
+                        <ImageView fx:id="profilePicture" fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets left="30.0" />
+                           </GridPane.margin>
+                        </ImageView>
+                        <Button fx:id="profileSaveButton" mnemonicParsing="false" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Ubuntu" size="18.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="74.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <ComboBox fx:id="profileMajorMenu" promptText="What is your major at Georgia Tech?" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets bottom="75.0" left="165.0" />
+                           </GridPane.margin>
+                        </ComboBox>
+                        <Text fx:id="profileMessage" strokeType="OUTSIDE" strokeWidth="0.0" text="Changes saved..." GridPane.rowIndex="3">
+                           <GridPane.margin>
+                              <Insets left="15.0" top="5.0" />
+                           </GridPane.margin>
+                           <font>
+                              <Font name="Ubuntu" size="18.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </GridPane>
+               </content>
           </Tab>
-            <Tab closable="false" text="Your Account">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </Tab>
         </tabs>
       </TabPane>
       <ButtonBar fx:id="buttonBar" buttonMinWidth="0.0" maxHeight="25.0" prefHeight="25.0" prefWidth="720.0" style="-fx-background-color: linear-gradient(to bottom, #474642, #3C3B37);" GridPane.columnSpan="3">
          <buttons>
             <Button fx:id="closeButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" style="-fx-background-radius: 12em;
-            -fx-min-width: 12px; -fx-min-height: 12px; -fx-max-width: 12px; -fx-max-height: 12px; -fx-background-color: #FF5C5C; -fx-background-insets: 0px; -fx-border-color: #E33E41;
-            -fx-border-radius: 50%; -fx-padding: 0px;" textAlignment="CENTER" translateX="-345.0" ButtonBar.buttonData="LEFT">
+                         -fx-min-width: 12px; -fx-min-height: 12px; -fx-max-width: 12px; -fx-max-height: 12px; -fx-background-color: #FF5C5C; -fx-background-insets: 0px; -fx-border-color: #E33E41;
+                                      -fx-border-radius: 50%; -fx-padding: 0px;" textAlignment="CENTER" translateX="-345.0" ButtonBar.buttonData="LEFT">
             </Button>
          </buttons></ButtonBar>
    </children>

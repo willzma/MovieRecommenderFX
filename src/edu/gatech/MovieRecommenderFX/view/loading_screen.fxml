@@ -22,7 +22,7 @@
    <children>
       <Text fx:id="loadingMessage" strokeType="OUTSIDE" strokeWidth="0.0" text="  Loading...">
          <font>
-            <Font name="Arial Bold" size="18.0" />
+            <Font name="Ubuntu Bold" size="18.0" />
          </font></Text>
       <ProgressIndicator fx:id="loadingWheel" progress="-1.0" GridPane.rowIndex="2" />
    </children>
