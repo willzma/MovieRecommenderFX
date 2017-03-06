@@ -7,6 +7,8 @@ Originally a movie rating C# desktop application developed for a software design
 
 ![alt text](https://github.com/willzma/MovieRecommenderFX/raw/master/movieRecommenderFX.png)
 
+![alt text](https://github.com/willzma/MovieRecommenderFX/raw/master/userProfile.png)
+
 ##A Learning Project
 Developing an application like this is excellent experience towards learning:
 * JavaFX 8, an excellent way for developing cross-platform desktop applications
